@@ -1,0 +1,42 @@
+public class Solution {
+    void dfs(ArrayList<ArrayList<Character>>a,int i,int j,boolean visited[][])
+    {
+        if(!visited[i][j] && (a.get(i).get(j)=='O' || a.get(i).get(j)=='1'))
+        {
+            visited[i][j]=true;
+            a.get(i).set(j,'O');
+            if(i-1>=0)
+            dfs(a,i-1,j,visited);
+            if(i+1<a.size())
+            dfs(a,i+1,j,visited);
+            if(j-1>=0)
+            dfs(a,i,j-1,visited);
+            if(j+1<a.get(0).size())
+            dfs(a,i,j+1,visited);
+        }
+    }
+    public void solve(ArrayList<ArrayList<Character>> a) {
+        int rows=a.size();
+        int cols=a.get(0).size();
+        boolean visited[][]=new boolean[rows][cols];
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                if(a.get(i).get(j)=='O' && (!visited[i][j]) && (i==0 || i==rows-1 || j==0 || j==cols-1))
+                dfs(a,i,j,visited);
+                else if(a.get(i).get(j)=='O' &&(!visited[i][j]))
+                a.get(i).set(j,'1');
+            }
+        }
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<cols;j++)
+            {
+                if(a.get(i).get(j)=='1')
+                a.get(i).set(j,'X');
+            }
+        }
+    }
+}
+
